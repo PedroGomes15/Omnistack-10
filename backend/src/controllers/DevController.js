@@ -16,7 +16,6 @@ module.exports = {
 
         if (!dev) {
             const user = await axios.get(`https://api.github.com/users/${github_user}`)
-            console.log(user.data)
             const { name, avatar_url: avatar, bio, login } = user.data
 
             const techsArray = parseString(techs)
@@ -38,5 +37,49 @@ module.exports = {
         }
 
         return response.json(dev)
+    },
+
+    async update(request, response) {
+        const { github_user, bio, name, techs, latitude, longitude, avatar_url } = request.body
+        let dev = await Dev.findOne({ github_user })
+
+        if (dev) {
+
+            const location = {
+                type: 'Point',
+                coordinates: [longitude, latitude]
+            }
+
+            const techsArray = parseString(techs)
+
+            dev = await Dev.updateOne({ github_user }, {
+                bio,
+                name,
+                techs: techsArray,
+                avatar_url,
+                location
+            })
+            return response.json(await Dev.findOne({ github_user }))
+        } else {
+            return response.json({
+                error: "Usuario nao encontrado"
+            })
+        }
+    },
+
+    async destroy(request, response) {
+        const { github_user } = request.body
+        let dev = await Dev.findOne({ github_user })
+
+        if (dev) {
+            dev = await Dev.deleteOne({ github_user })
+            return response.json({
+                resultado: "Usuario " + github_user + " deletado com sucesso"
+            })
+        } else {
+            return response.json({
+                error: "Usuario nao encontrado"
+            })
+        }
     }
 }

@@ -1,0 +1,60 @@
+li.dev-item {
+    background: white;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.52);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+li.dev-item header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+li.dev-item header img {
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+}
+
+li.dev-item header .user-info {
+    margin-left: 10px;
+}
+
+.user-info strong {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+.user-info span {
+    font-size: 13px;
+    color: #999;
+    margin-top: 2px;
+}
+
+@media(max-width: 650px) {
+    main ul {
+        grid-template-columns: 1fr;
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+li.dev-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
+    margin: 10px 0;
+}
+
+li.dev-item a {
+    font-size: 14px;
+    color: #8d369e;
+    text-decoration: none;
+}
+
+li.dev-item a:hover {
+    color: #5a2ea6;
+}
