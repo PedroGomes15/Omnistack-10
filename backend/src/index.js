@@ -1,18 +1,26 @@
-const express = require('express');
-const mongoose = require('mongoose')
-const cors = require('cors')
-const routes = require('./routes')
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const { setupWebsocket } = require("./websocket");
+const http = require("http");
+const routes = require("./routes");
 
-const app = express()
+const app = express();
+const server = http.Server(app);
 
-mongoose.connect("mongodb+srv://pedro_gomes:1q2w3e4r5t@cluster0-1dl9v.mongodb.net/week10?retryWrites=true&w=majority", {
+setupWebsocket(server)
+
+mongoose.connect(
+  "mongodb+srv://pedro_gomes:1q2w3e4r5t@cluster0-1dl9v.mongodb.net/week10?retryWrites=true&w=majority",
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
-})
+  }
+);
 
-app.use(cors())
-app.use(express.json())
-app.use(routes)
+app.use(cors());
+app.use(express.json());
+app.use(routes);
 
-app.listen(1406)
+server.listen(1406);
