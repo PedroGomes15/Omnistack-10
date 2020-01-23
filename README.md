@@ -1,4 +1,6 @@
+```html
 <h1 style="color:#7d40e7;">Omnistack-10</span>
+```
 
 ### Semana omnistack da Rockeseat
 
